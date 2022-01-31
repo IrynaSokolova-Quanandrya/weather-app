@@ -1,24 +1,28 @@
-import logo from "./logo.svg";
+import { Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Container from './components/Container/Container'
+import AppBar from "./components/AppBar/AppBar";
+import CitiesPage from "./components/pages/Cities/CitiesPage";
+import HomePage from "./components/pages/HomePage/HomePage";
+import CityDitailPage from "./components/pages/CityDitailPage/CityDitailPage";
+import HourlyForecast from "./components/pages/HourlyForecast/HourlyForecast";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <AppBar/>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path='/' element={<HomePage/>}/>
+          <Route path='/cities' element={<CitiesPage/>}>
+              {/* <Route path='/city/:cityId' element={<CityDitailPage/>}/>
+              <Route path='/city/:cityId/hourly' element={<HourlyForecast/>}/> */}
+          </Route>
+        </Routes>
+      </Suspense>
+    </Container>
   );
 }
 
