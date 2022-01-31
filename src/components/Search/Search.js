@@ -10,10 +10,10 @@ export default function Search(){
                         type="text"
                         autoComplete="off"
                         autoFocus
-                        placeholder="Enter your city"
+                        placeholder="Enter city you want to add"
                     />
                     <button type="submit" className={s.SearchForm__button}>
-                        <span className={s.SearchForm__buttonLabel}>Search</span>
+                        <span className={s.SearchForm__buttonLabel}>Add</span>
                     </button>
                 </form>
     )
