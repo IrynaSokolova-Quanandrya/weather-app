@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import CityList from '../../CityList/CityList'
 import Search from '../../Search/Search'
@@ -19,8 +18,6 @@ console.log(data);
         <>
             <Search onSubmit={searchQuery}/>
             {data && <CityList data={data}/>}
-            <Link to={'/city/:cityId'}>See more</Link>
-            <Link to={'/city/:cityId/hourly'}>Hourly forecast</Link>
         </>
         
     )
