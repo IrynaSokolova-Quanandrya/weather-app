@@ -1,11 +1,28 @@
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import s from './Search.module.css'
 
 
-export default function Search(){
+export default function Search({onSubmit}){
+    const [query, setQuery] = useState('');
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        if(query.trim() === ''){
+            return toast.error("Enter city")
+        }
+        onSubmit(query)
+        setQuery('');
+    }
+    const handleChange = e => {
+        setQuery(e.target.value.toLowerCase())
+    }
+
     return(
-        <form  className={s.SearchForm}>
+        <form onSubmit={handleSubmit} className={s.SearchForm}>
                     <input
                         className={s.SearchForm__input}
+                        onChange={handleChange}
                         name='query'
                         type="text"
                         autoComplete="off"
