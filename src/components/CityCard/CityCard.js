@@ -8,10 +8,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import s from './CityCard.module.css';
 
-export default function CityCard({temp, name, country, weather}) {
+export default function CityCard({temp, name, country, weather, coord}) {
+
   return (
     <div>
     <Card sx={{ maxWidth: 345 }} className={s.list__item}>
+      {coord.lon} {coord.lat}
       <CardMedia
         component="img"
         alt={weather[0].description}
@@ -29,7 +31,7 @@ export default function CityCard({temp, name, country, weather}) {
       </CardContent>
       <CardActions>
         <Button size="big">
-          <NavLink to={'/cities/:cityId'}>See more</NavLink>
+          <NavLink to={'/cities/:cityId'} state={{from: coord}}>See more</NavLink>
         </Button>
         <Button size="big">Update</Button>
         <Button size="big">Delete</Button>

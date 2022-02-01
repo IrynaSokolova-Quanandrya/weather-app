@@ -14,7 +14,7 @@ export const cityApi = createApi({
             providesTags: ["City"],
         }),
         getCityDitails: builder.query({
-            query: (lat, lon, part) => `onecall?lat=${lat}&lon=${lon}&exclude=${part}&appid=40207e285e43c5b8e49ba7f2599cdd4b`,
+            query: ({lat, lon}) => `onecall?lat=${lat}&lon=${lon}&appid=40207e285e43c5b8e49ba7f2599cdd4b`,
             providesTags: ["City"],
         }),
         deleteCity: builder.mutation({
