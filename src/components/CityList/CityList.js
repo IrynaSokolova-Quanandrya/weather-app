@@ -1,7 +1,7 @@
 import s from './CityList.module.css'
 import CityCard from "../CityCard/CityCard";
 
-export default function CityList({data}){
+export default function CityList({data, onRefetch}){
 
     // console.log(onGetCoord());
     const {
@@ -16,6 +16,7 @@ export default function CityList({data}){
         <div>
         <ul className={s.list}>
             <CityCard 
+            refetch={onRefetch}
             coord={coord}
             temp={main}
             name={name}

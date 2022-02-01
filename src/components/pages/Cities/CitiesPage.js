@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import CityList from '../../CityList/CityList'
 import Search from '../../Search/Search'
 import {useGetCityByNameQuery} from '../../../redux/slice'
@@ -7,26 +7,20 @@ import { Hearts } from 'react-loader-spinner';
 
 export default function CitiesPage(){
     const [cityName, setCityName] = useState('')
-    const {data, error, isLoading} = useGetCityByNameQuery(cityName, {
+    const {data, error, isLoading, refetch} = useGetCityByNameQuery(cityName, {
         skip: cityName === '',
     })
+    // console.log(error);
     const searchQuery = (query) => {
         setCityName(query)
     }
+    const notify = () => toast(`Can't find ${cityName}`);
     return(
         <>
             <Search onSubmit={searchQuery}/>
             {isLoading && <Hearts color="#00BFFF" height={80} width={80} />}
-            {data && <CityList data={data}/>}
-            {error && toast('Oops! Something went wrong((', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })}
+            {data && <CityList data={data} onRefetch={refetch}/>}
+            {error && notify()}
         </>
         
     )

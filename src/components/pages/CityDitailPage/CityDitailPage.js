@@ -1,4 +1,4 @@
-import { current } from '@reduxjs/toolkit';
+import { Hearts } from 'react-loader-spinner';
 import { NavLink, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import { useGetCityDitailsQuery } from '../../../redux/slice';
 import s from './CityDitailPage.module.css'
@@ -9,19 +9,23 @@ export default function CityDitailPage(){
 
     const {from, pathname} = location.state;
 console.log(from);
-    const {data, error, isLoading} = useGetCityDitailsQuery(from, {
+    const {data, error, isLoading} = useGetCityDitailsQuery(from,
+        {
         skip: pathname === '/cities/:cityId'
-    })
+    }
+    )
     console.log(data);
     const {current, timezone} = data;
     return(
         <>
+        {isLoading && <Hearts color="#00BFFF" height={80} width={80} />}
         <button 
         onClick={() => navigate(-1)}
         className={s.button}>
             Go Back
         </button>
         <h2>Name, Country</h2>
+        {data &&         
         <ul>
             <li>{current.weather[0].description}</li>
             <li>Temperature {current.temp}</li>
@@ -37,9 +41,8 @@ console.log(from);
             </li>
 
         </ul>
-
-        
-
+        }
+        {error && <p>OOPS!</p>}
         <NavLink to={'/cities/:cityId/hourly'}>Show hourly forecast</NavLink>
         <Outlet/>
 </>

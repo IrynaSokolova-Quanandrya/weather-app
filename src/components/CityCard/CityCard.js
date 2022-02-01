@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import s from './CityCard.module.css';
 
-export default function CityCard({temp, name, country, weather, coord}) {
+export default function CityCard({temp, name, country, weather, coord, refetch}) {
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function CityCard({temp, name, country, weather, coord}) {
         <Button size="big">
           <NavLink to={'/cities/:cityId'} state={{from: coord}}>See more</NavLink>
         </Button>
-        <Button size="big">Update</Button>
+        <Button size="big" onClick={refetch}>Update</Button>
         <Button size="big">Delete</Button>
         
       </CardActions>
