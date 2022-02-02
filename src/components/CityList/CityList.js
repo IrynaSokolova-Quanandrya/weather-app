@@ -1,8 +1,10 @@
 import s from './CityList.module.css'
 import CityCard from "../CityCard/CityCard";
+import { useLocation } from 'react-router-dom';
 
 export default function CityList({data, onRefetch}){
-
+const location = useLocation();
+// console.log(location);
     // console.log(onGetCoord());
     const {
         id,

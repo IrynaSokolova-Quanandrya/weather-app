@@ -38,7 +38,7 @@ export default function CityCard({
       </CardContent>
       <CardActions>
         <Button size="big">
-          <NavLink to={`/cities/${id}`} state={{from: coord}}>See more</NavLink>
+          <NavLink to={`/cities/${id}`} state={{from: coord, id: id}}>See more</NavLink>
         </Button>
         <Button size="big" onClick={refetch}>Update</Button>
         <Button size="big">Delete</Button>

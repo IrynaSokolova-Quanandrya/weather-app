@@ -10,6 +10,7 @@ export default function CitiesPage(){
     const {data, error, isLoading, refetch} = useGetCityByNameQuery(cityName, {
         skip: cityName === '',
     })
+    
     // console.log(error);
     const searchQuery = (query) => {
         setCityName(query)
@@ -19,8 +20,8 @@ export default function CitiesPage(){
         <>
             <Search onSubmit={searchQuery}/>
             {isLoading && <Hearts color="#00BFFF" height={80} width={80} />}
-            {data && <CityList data={data} onRefetch={refetch}/>}
-            {error && notify(), <ToastContainer/>}
+            {data && <CityList data={data}  onRefetch={refetch}/>}
+            {error && notify() }
         </>
         
     )

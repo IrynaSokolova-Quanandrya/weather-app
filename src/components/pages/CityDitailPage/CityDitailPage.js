@@ -1,5 +1,4 @@
 import { Hearts } from 'react-loader-spinner';
-import { current } from '@reduxjs/toolkit';
 import { NavLink, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import { useGetCityDitailsQuery } from '../../../redux/slice';
 import s from './CityDitailPage.module.css'
@@ -8,16 +7,11 @@ export default function CityDitailPage(){
     const location = useLocation();
     const navigate = useNavigate();
 
-    const {from, pathname} = location.state;
-console.log(from);
-console.log(useGetCityDitailsQuery(from));
-    const {data, error, isLoading} = useGetCityDitailsQuery(from,
-        {
-        skip: pathname === '/cities/:cityId'
-    }
-    )
-    console.log(data);
+    const {from, pathname, id} = location.state;
+    const {data, error, isLoading} = useGetCityDitailsQuery(from)
+    //  console.log(data);
     const {current, timezone} = data;
+//     console.log(this.state);
     return(
         <>
         {/* {isLoading && <Hearts color="#00BFFF" height={80} width={80} />} */}
@@ -27,7 +21,7 @@ console.log(useGetCityDitailsQuery(from));
             Go Back
         </button>
         <h2>Name, Country</h2>
-        {/* {data &&          */}
+         {data &&         
         <ul>
             <li>{current.weather[0].description}</li>
             <li>Temperature {current.temp}</li>
@@ -43,8 +37,8 @@ console.log(useGetCityDitailsQuery(from));
             </li>
 
         </ul>
-        {/* } */}
-        {/* {error && <p>OOPS!</p>} */}
+     }   
+        {/* {error && <p>OOPS!</p>}  */}
         <NavLink to={'/cities/:cityId/hourly'}>Show hourly forecast</NavLink>
         <Outlet/>
 </>
