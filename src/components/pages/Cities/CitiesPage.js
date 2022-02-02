@@ -20,7 +20,7 @@ export default function CitiesPage(){
             <Search onSubmit={searchQuery}/>
             {isLoading && <Hearts color="#00BFFF" height={80} width={80} />}
             {data && <CityList data={data} onRefetch={refetch}/>}
-            {error && notify()}
+            {error && notify(), <ToastContainer/>}
         </>
         
     )

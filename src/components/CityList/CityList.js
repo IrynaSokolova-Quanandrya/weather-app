@@ -5,6 +5,7 @@ export default function CityList({data, onRefetch}){
 
     // console.log(onGetCoord());
     const {
+        id,
         coord,
         main, 
         name,
@@ -16,6 +17,7 @@ export default function CityList({data, onRefetch}){
         <div>
         <ul className={s.list}>
             <CityCard 
+            id={id}
             refetch={onRefetch}
             coord={coord}
             temp={main}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,7 +8,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import s from './CityCard.module.css';
 
-export default function CityCard({temp, name, country, weather, coord, refetch}) {
+export default function CityCard({
+  id,
+  temp, 
+  name, 
+  country, 
+  weather, 
+  coord, 
+  refetch}) {
 
   return (
     <div>
@@ -31,7 +38,7 @@ export default function CityCard({temp, name, country, weather, coord, refetch})
       </CardContent>
       <CardActions>
         <Button size="big">
-          <NavLink to={'/cities/:cityId'} state={{from: coord}}>See more</NavLink>
+          <NavLink to={`/cities/${id}`} state={{from: coord}}>See more</NavLink>
         </Button>
         <Button size="big" onClick={refetch}>Update</Button>
         <Button size="big">Delete</Button>

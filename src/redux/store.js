@@ -21,11 +21,12 @@ const middleware = [
         }
     }), 
     cityApi.middleware,
-    // logger,
+    logger,
 ]
 const persistConfig = {
-    key: "contacts",
+    key: "city",
     storage,
+    whitelist: ['queries']
   };
 
 const rootReducer = combineReducers({
