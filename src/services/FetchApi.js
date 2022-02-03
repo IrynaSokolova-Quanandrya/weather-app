@@ -1,44 +1,37 @@
-// import axios from "axios";
-// import propTypes from 'prop-types';
+import axios from "axios";
+import propTypes from 'prop-types';
 
-// const URL = "https://api.themoviedb.org/3/";
-// const KEY = "098c0a06f6f788991ea9bd1b1a28f1b9";
+const KEY = "40207e285e43c5b8e49ba7f2599cdd4b";
+axios.defaults.baseURL = "https://api.openweathermap.org/data/2.5";
 
-//  function FetchHomeApi() {
-//      return  axios
-//     .get(`${URL}trending/all/week?api_key=${KEY}`)
-//     .then((r) => r.data)
-   
-// }
-// function FetchMovieDetailsPageApi(movieId){
-//     return axios
-//     .get(`${URL}/movie/${movieId}?api_key=${KEY}&language=en-US`)
-//     .then((r) => (r.data))   
-// }
-// function FetchCastApi(movieId) {
-//      return  axios
-//      .get(`${URL}movie/${movieId}/credits?api_key=${KEY}&language=en-US`)
-//      .then(r=>r.data)
-   
-// }
-// function FetchRePagesApi(movieId) {
-//     return axios
-//     .get(`${URL}movie/${movieId}/rePages?api_key=${KEY}&language=en-US`)
-//     .then(r=>r.data)
-// }
-// const api = {
-//     FetchHomeApi,
-//     FetchCastApi,
-//     FetchRePagesApi,
-//     FetchMovieDetailsPageApi
-// }
-// FetchMovieDetailsPageApi.propTypes={
-//     movieId: propTypes.number.isRequired
-// }
-// FetchCastApi.propTypes={
-//     movieId: propTypes.number.isRequired
-// }
-// FetchRePagesApi.propTypes={
-//     movieId: propTypes.number.isRequired
-// }
-// export default api;
+async function fetchWeatherApi(name) {
+     try {
+         const data = axios.get(`weather?q=${name}&units=metric&appid=${KEY}`)
+         return data.data
+     } catch (error) {
+         throw Error({message: `City ${name} not found`})
+     }
+    }
+    
+async function fetchHourlyWeatherApi(lat, lon){
+    try {
+        const data = axios.get(`onecall?lat=${lat}&lon=${lon}&appid=${KEY}`)
+        return data.data
+    } catch (error) {
+        throw Error(error)
+    }
+}
+    
+
+fetchWeatherApi.propTypes={
+    name: propTypes.string.isRequired
+}
+fetchHourlyWeatherApi.propTypes={
+    lat: propTypes.number.isRequired,
+    lon: propTypes.number.isRequired
+}
+
+export default {
+    fetchWeatherApi,
+    fetchHourlyWeatherApi
+}

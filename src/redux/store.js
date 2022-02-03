@@ -2,7 +2,7 @@ import {configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/t
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import {cityApi} from './slice'
+import weatherReducer from './reducers'
 import {
     persistStore,
     persistReducer,
@@ -20,17 +20,17 @@ const middleware = [
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
         }
     }), 
-    cityApi.middleware,
     logger,
 ]
 const persistConfig = {
     key: "city",
     storage,
-    whitelist: ['queries']
+    // whitelist: ['queries']
   };
-
+  
 const rootReducer = combineReducers({
-[cityApi.reducerPath]: persistReducer(persistConfig, cityApi.reducer)
+    cities: persistReducer(persistConfig, weatherReducer),
+
 })
 
 export const store = configureStore({
@@ -40,4 +40,5 @@ export const store = configureStore({
 })
 
 export const persistor = persistStore(store);
+
 setupListeners(store.dispatch)
