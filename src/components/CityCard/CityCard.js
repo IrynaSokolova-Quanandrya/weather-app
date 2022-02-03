@@ -1,5 +1,9 @@
-import * as React from 'react';
 import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import weatherActions from '../../redux/actions'
+import {updateCity} from '../../redux/operations'
+
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,14 +12,31 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import s from './CityCard.module.css';
 
-export default function CityCard({
-  id,
-  temp, 
-  name, 
-  country, 
-  weather, 
-  coord, 
-  refetch}) {
+
+export default function CityCard({data}) {
+  const dispatch = useDispatch();
+
+  const onDeleteCity = e => {
+    const id = e.target.parentElement.id;
+    dispatch(weatherActions.deleteCity(+id));
+  }
+  const onDetails = (e) => {
+    const id = e.currentTarget.id;
+    dispatch(weatherActions.cityId(id))
+  };
+
+  const updateData = () => {
+    dispatch(updateCity(name));
+  };
+
+  const {id,
+        main, 
+        name, 
+        sys, 
+        weather, 
+        coord,
+        wind} = data;
+        console.log(data);
 
   return (
     <div>
@@ -28,9 +49,9 @@ export default function CityCard({
         image={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
       />
       <CardContent>
-        {Math.round(temp.temp)} &#8451;
+        {Math.round(main.temp)} &#8451;
         <Typography gutterBottom variant="h5" component="div">
-          {name}, {country.country}
+          {name}, {sys.country}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {weather[0].main}
@@ -38,10 +59,14 @@ export default function CityCard({
       </CardContent>
       <CardActions>
         <Button size="big">
-          <NavLink to={`/cities/${id}`} state={{from: coord, id: id}}>See more</NavLink>
+        <NavLink to={`/cities/${id}`} 
+        ditails={onDetails}
+        // state={{from: data}}
+        >See more</NavLink>
+          {/* <NavLink to={`/cities/${id}`} state={{from: coord, id: id}}>See more</NavLink> */}
         </Button>
-        <Button size="big" onClick={refetch}>Update</Button>
-        <Button size="big">Delete</Button>
+        <Button size="big" onClick={updateData}>Update</Button>
+        <Button size="big" onClick={onDeleteCity} id={id}>Delete</Button>
         
       </CardActions>
     </Card>

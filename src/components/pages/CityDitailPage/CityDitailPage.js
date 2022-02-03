@@ -1,46 +1,47 @@
-import { Hearts } from 'react-loader-spinner';
 import { NavLink, Outlet, useLocation, useNavigate} from 'react-router-dom';
-import { useGetCityDitailsQuery } from '../../../redux/slice';
 import s from './CityDitailPage.module.css'
 
 export default function CityDitailPage(){
     const location = useLocation();
     const navigate = useNavigate();
-
-    const {from, pathname, id} = location.state;
-    const {data, error, isLoading} = useGetCityDitailsQuery(from)
-    //  console.log(data);
-    const {current, timezone} = data;
-//     console.log(this.state);
+    const {from} = location.state;
+    const {
+        id,
+        weather,
+        main,
+        timezone,
+        sys,
+        name,
+        wind,
+        coord
+    } = from;
     return(
         <>
-        {/* {isLoading && <Hearts color="#00BFFF" height={80} width={80} />} */}
         <button 
         onClick={() => navigate(-1)}
         className={s.button}>
             Go Back
         </button>
-        <h2>Name, Country</h2>
-         {data &&         
+        <h2>{name}, {sys.country}</h2> 
+         {from &&    
         <ul>
-            <li>{current.weather[0].description}</li>
-            <li>Temperature {current.temp}</li>
-            <li>Feels like {current.feels_like}</li>
-            <li>Humidity {current.humidity}</li>
-            <li>Pressure {current.pressure}</li>
-            <li>Wind speed {current.wind_speed}</li>
+            <li>{weather[0].description}</li>
+            <li>Temperature {main.temp}</li>
+            <li>Feels like {main.feels_like}</li> 
+            <li>min:{main.temp_max}, max:{main.temp_min}</li>
+            <li>Humidity {main.humidity}%</li>
+            <li>Pressure {main.pressure}</li>
+            <li>Wind speed {wind.speed}</li>
             <li>Timezone {timezone}</li>
             <li>
                 <img 
-                src={`http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`}
-                alt={current.weather[0].description}/>
+                src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
+                alt={weather[0].description}/>
             </li>
-
         </ul>
-     }   
-        {/* {error && <p>OOPS!</p>}  */}
-        <NavLink to={'/cities/:cityId/hourly'}>Show hourly forecast</NavLink>
+    }
+        <NavLink to={`/cities/${id}/hourly`} state={{from: coord}} >Show hourly forecast</NavLink> 
         <Outlet/>
-</>
+        </>
     )
 }
