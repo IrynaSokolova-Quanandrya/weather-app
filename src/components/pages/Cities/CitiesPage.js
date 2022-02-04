@@ -3,8 +3,6 @@ import { useDispatch, useSelector} from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import {citiesList, loading, error} from '../../../redux/selectors'
 import CityList from '../../CityList/CityList'
-// import Search from '../../Search/Search'
-// import {useGetWeatherByCityNameQuery} from '../../../redux/slices/weatherSlice';
 import Alert from '@mui/material/Alert';
 import { Hearts } from 'react-loader-spinner';
 import { addCity} from '../../../redux/operations';
@@ -54,7 +52,7 @@ export default function CitiesPage(){
                 </form>
             {isLoading && <Hearts color="#00BFFF" height={80} width={80} />} 
             <CityList />
-            {dataError && 
+            {!dataError && 
             <Alert
                 severity="error"
                 onClose={handleClose}

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import weatherActions from '../../redux/actions'
-import {updateCity} from '../../redux/operations'
+import {updateCity, getHourlyWeather} from '../../redux/operations'
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -14,7 +14,14 @@ import s from './CityCard.module.css';
 
 export default function CityCard({data}) {
   const dispatch = useDispatch();
-
+    const {id,
+            main, 
+            name, 
+            sys, 
+            weather, 
+            coord,
+            wind} = data;
+            const{lat, lon} = coord;
   const onDeleteCity = e => {
     const id = e.target.id;
     dispatch(weatherActions.deleteCity(+id));
@@ -22,19 +29,14 @@ export default function CityCard({data}) {
   const onDetails = (e) => {
     const id = e.currentTarget.id;
     dispatch(weatherActions.cityId(id))
+    
   };
 
   const updateData = () => {
     dispatch(updateCity(name));
   };
 
-  const {id,
-        main, 
-        name, 
-        sys, 
-        weather, 
-        coord,
-        wind} = data;
+  
 
   return (
     <div>
@@ -58,8 +60,8 @@ export default function CityCard({data}) {
       <CardActions>
         <Button size="big">
         <NavLink to={`/cities/${id}`} 
-        // ditails={onDetails}
-        state={{from: data}}
+            ditails={onDetails}
+            state={{from: data}}
         >See more</NavLink>
         </Button>
         <Button size="big" onClick={updateData}>Update</Button>

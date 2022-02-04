@@ -9,13 +9,6 @@ async function fetchWeatherApi(name) {
     .get(`weather?q=${name}&units=metric&appid=${KEY}`)
     .then((r)=>r.data)
     .catch((error) => {throw Error({message: `City ${name} not found`})})
-    //  try {
-    //      const data = axios.get(`weather?q=${name}&units=metric&appid=${KEY}`)
-    //      console.log(data);
-    //      return data.data
-    //  } catch (error) {
-    //      throw Error({message: `City ${name} not found`})
-    //  }
     }
     
 async function fetchHourlyWeatherApi(lat, lon){

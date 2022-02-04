@@ -20,7 +20,6 @@ const middleware = [
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
         }
     }),
-    // weatherReducer.middleware, 
     logger,
 
 ]
@@ -30,12 +29,6 @@ const persistConfig = {
     whitelist: ['citiesReducer']
   };
   
-//   const rootReducer = persistReducer(
-//     persistConfig,
-//     combineReducers({
-//         weatherReducer,
-//     })
-//   );
 const rootReducer = combineReducers({
     cities: persistReducer(persistConfig, weatherReducer),
 

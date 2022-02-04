@@ -5,7 +5,6 @@ export default function CityDitailPage(){
     const location = useLocation();
     const navigate = useNavigate();
     const {from} = location.state;
-    console.log(from);
     const {
         id,
         weather,
@@ -44,13 +43,13 @@ export default function CityDitailPage(){
         </ul>
     }
         </div>
-        <NavLink 
+        {/* <NavLink 
             to={`/cities/${id}/hourly`} 
             state={{from: coord}} 
             className={s.link}
             >
                 Show hourly forecast
-        </NavLink> 
+        </NavLink>  */}
         <Outlet/>
         </>
     )
