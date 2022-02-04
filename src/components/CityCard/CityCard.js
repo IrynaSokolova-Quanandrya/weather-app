@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import weatherActions from '../../redux/actions'
-import {updateCity, getHourlyWeather} from '../../redux/operations'
+import {updateCity} from '../../redux/operations'
+import PropTypes from "prop-types";
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,6 +11,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import s from './CityCard.module.css';
+import { checkPropTypes } from 'prop-types';
 
 
 export default function CityCard({data}) {
@@ -71,4 +73,8 @@ export default function CityCard({data}) {
     </Card>
     </div>
   );
+}
+
+CityCard.PropTypes={
+  data: PropTypes.object.isRequired
 }
