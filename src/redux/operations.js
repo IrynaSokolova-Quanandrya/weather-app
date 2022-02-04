@@ -4,13 +4,10 @@ import weatherActions from './actions';
 
 export const addCity = (cityName, citiesList) => async (dispatch) => {
     dispatch(weatherActions.addCityRequest());
-// api.fetchWeatherApi(cityName)
-// .then((data)=>dispatch(weatherActions.addCitySuccess(data.data)))
-// .catch((error)=>dispatch(weatherActions.addCityError(error)))
     try {
       const data = await api.fetchWeatherApi(cityName);
-      // const city = citiesList.find(({ id }) => id === data.id);
-      if(data){
+      const city = citiesList.find(({ id }) => id === data.id);
+      if(!city){
         dispatch(weatherActions.addCitySuccess(data)
         )}        
         dispatch(

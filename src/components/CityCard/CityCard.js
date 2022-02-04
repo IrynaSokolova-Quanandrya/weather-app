@@ -16,7 +16,7 @@ export default function CityCard({data}) {
   const dispatch = useDispatch();
 
   const onDeleteCity = e => {
-    const id = e.target.parentElement.id;
+    const id = e.target.id;
     dispatch(weatherActions.deleteCity(+id));
   }
   const onDetails = (e) => {
@@ -61,7 +61,6 @@ export default function CityCard({data}) {
         // ditails={onDetails}
         state={{from: data}}
         >See more</NavLink>
-          {/* <NavLink to={`/cities/${id}`} state={{from: coord, id: id}}>See more</NavLink> */}
         </Button>
         <Button size="big" onClick={updateData}>Update</Button>
         <Button size="big" onClick={onDeleteCity} id={id}>Delete</Button>
