@@ -19,15 +19,23 @@ const middleware = [
         serializableCheck:{
             ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
         }
-    }), 
+    }),
+    // weatherReducer.middleware, 
     logger,
+
 ]
 const persistConfig = {
     key: "city",
     storage,
-    // whitelist: ['queries']
+    whitelist: ['citiesReducer']
   };
   
+//   const rootReducer = persistReducer(
+//     persistConfig,
+//     combineReducers({
+//         weatherReducer,
+//     })
+//   );
 const rootReducer = combineReducers({
     cities: persistReducer(persistConfig, weatherReducer),
 

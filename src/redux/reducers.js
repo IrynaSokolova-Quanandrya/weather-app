@@ -2,28 +2,29 @@ import { combineReducers, createReducer } from '@reduxjs/toolkit';
 import weatherActions from './actions';
 
 const citiesReducer = createReducer([],{
-    [weatherActions.addCitySuccess]: (state, action)=>[
+    [weatherActions.addCitySuccess]: (state, {payload})=>[
         ...state,
-        action.payload
+        payload
     ],
-    [weatherActions.deleteCity]: (state, action)=>
-    state.filter(({id})=>id !== action.payload),
-    [weatherActions.updateCitySuccess]: (state, action) =>
-    state.map((name) => {
-      if (name.id === action.payload.id) {
-        return action.payload;
+    [weatherActions.deleteCity]: (state, {payload})=>
+    state.filter(({id})=>id !== payload),
+
+    [weatherActions.updateCitySuccess]: (state, {payload}) =>
+    state.map((city) => {
+      if (city.id === payload.id) {
+        return payload;
       }
-      return name;
+      return city;
     }),
 });
 
-const cityIdReduces = createReducer("", {
-    [weatherActions.cityId]: (_, action) => action.payload,
+const cityIdReducer = createReducer("", {
+    [weatherActions.cityId]: (_, {payload}) => payload,
   });
   
 const hourlyWeatherReducer = createReducer([], {
-    [weatherActions.getHourlyWeatherSuccess]: (_, action) =>
-      action.payload.hourly,
+    [weatherActions.getHourlyWeatherSuccess]: (_, {payload}) =>
+      payload.hourly,
   });
   
 const loadingReducer = createReducer(false, {
@@ -41,35 +42,35 @@ const loadingReducer = createReducer(false, {
 const errorReducer = createReducer(
     { error: false },
     {
-      [weatherActions.addCityError]: (_, action) => ({
+      [weatherActions.addCityError]: (_, {payload}) => ({
         error: true,
-        message: action.payload.message,
+        message: payload.message,
       }),
       [weatherActions.addCitySuccess]: () => ({
         error: false,
       }),
   
-      [weatherActions.updateCityError]: (_, action) => ({
+      [weatherActions.updateCityError]: (_, {payload}) => ({
         error: true,
-        message: action.payload.message,
+        message: payload.message,
       }),
       [weatherActions.updateCitySuccess]: () => ({
         error: false,
       }),
-      [weatherActions.getHourlyWeatherError]: (_, action) => ({
+      [weatherActions.getHourlyWeatherError]: (_, {payload}) => ({
         error: true,
-        message: action.payload.message,
+        message: payload.message,
       }),
       [weatherActions.getHourlyWeatherSuccess]: () => ({
         error: false,
       }),
-      [weatherActions.errorOff]: (_, action) => action.payload,
+      [weatherActions.errorOff]: (_, {payload}) => payload,
     }
   );
 
   export default combineReducers({
     citiesReducer,
-    cityIdReduces,
+    cityIdReducer,
     hourlyWeatherReducer,
     loadingReducer,
     errorReducer

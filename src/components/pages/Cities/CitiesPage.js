@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
-import {cityList, loading, error} from '../../../redux/selectors'
+import {citiesList, loading, error} from '../../../redux/selectors'
 import CityList from '../../CityList/CityList'
 // import Search from '../../Search/Search'
 // import {useGetWeatherByCityNameQuery} from '../../../redux/slices/weatherSlice';
@@ -14,10 +14,11 @@ import s from './CitiesPage.module.css'
 
 export default function CitiesPage(){
     const [query, setQuery] = useState('')
-    const list = useSelector(cityList)
+
+    const list = useSelector(citiesList)
     const isLoading = useSelector(loading)
     const dataError = useSelector(error)
-console.log('list:', list);
+
     const dispatch = useDispatch();
     
     const handleSubmit = e => {
@@ -40,6 +41,7 @@ console.log('list:', list);
                     <input
                         className={s.SearchForm__input}
                         onChange={handleChange}
+                        value={query}
                         name='query'
                         type="text"
                         autoComplete="off"
@@ -51,14 +53,14 @@ console.log('list:', list);
                     </button>
                 </form>
             {isLoading && <Hearts color="#00BFFF" height={80} width={80} />} 
-            {/* <CityList /> */}
-            {/* {dataError && 
+            <CityList />
+            {dataError && 
             <Alert
                 severity="error"
                 onClose={handleClose}
             >
               {error.message}
-            </Alert>} */}
+            </Alert>}
         </>
         
     )

@@ -5,21 +5,30 @@ const KEY = "40207e285e43c5b8e49ba7f2599cdd4b";
 axios.defaults.baseURL = "https://api.openweathermap.org/data/2.5";
 
 async function fetchWeatherApi(name) {
-     try {
-         const data = axios.get(`weather?q=${name}&units=metric&appid=${KEY}`)
-         return data.data
-     } catch (error) {
-         throw Error({message: `City ${name} not found`})
-     }
+    return axios
+    .get(`weather?q=${name}&units=metric&appid=${KEY}`)
+    .then((r)=>r.data)
+    .catch((error) => {throw Error({message: `City ${name} not found`})})
+    //  try {
+    //      const data = axios.get(`weather?q=${name}&units=metric&appid=${KEY}`)
+    //      console.log(data);
+    //      return data.data
+    //  } catch (error) {
+    //      throw Error({message: `City ${name} not found`})
+    //  }
     }
     
 async function fetchHourlyWeatherApi(lat, lon){
-    try {
-        const data = axios.get(`onecall?lat=${lat}&lon=${lon}&appid=${KEY}`)
-        return data.data
-    } catch (error) {
-        throw Error(error)
-    }
+    return axios
+    .get(`onecall?lat=${lat}&lon=${lon}&appid=${KEY}`)
+    .then((r)=>r.data)
+    .catch((error) => {throw Error(error)})
+    // try {
+    //     const data = axios.get(`onecall?lat=${lat}&lon=${lon}&appid=${KEY}`)
+    //     return data.data
+    // } catch (error) {
+    //     throw Error(error)
+    // }
 }
     
 
@@ -31,7 +40,8 @@ fetchHourlyWeatherApi.propTypes={
     lon: propTypes.number.isRequired
 }
 
-export default {
+ const api = {
     fetchWeatherApi,
     fetchHourlyWeatherApi
 }
+export default api;

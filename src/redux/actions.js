@@ -12,13 +12,13 @@ import { createAction } from "@reduxjs/toolkit";
  const getHourlyWeatherSuccess = createAction("city/getHourlySuccess");
  const getHourlyWeatherError = createAction("city/getHourlyError");
 
- const cityId = createAction("product/productId");
+ const cityId = createAction("city/cityId");
 
- const deleteCity = createAction("city/delete");
+ const deleteCity = createAction("city/deleteCity");
 
  const errorOff = createAction("error/off");
 
- export default {
+ const weatherActions = {
     addCityRequest,
     addCitySuccess,
     addCityError,
@@ -32,3 +32,4 @@ import { createAction } from "@reduxjs/toolkit";
     deleteCity,
     errorOff,
  }
+ export default weatherActions;

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import weatherActions from '../../redux/actions'
 import {updateCity} from '../../redux/operations'
 
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -36,7 +35,6 @@ export default function CityCard({data}) {
         weather, 
         coord,
         wind} = data;
-        console.log(data);
 
   return (
     <div>
@@ -60,8 +58,8 @@ export default function CityCard({data}) {
       <CardActions>
         <Button size="big">
         <NavLink to={`/cities/${id}`} 
-        ditails={onDetails}
-        // state={{from: data}}
+        // ditails={onDetails}
+        state={{from: data}}
         >See more</NavLink>
           {/* <NavLink to={`/cities/${id}`} state={{from: coord, id: id}}>See more</NavLink> */}
         </Button>

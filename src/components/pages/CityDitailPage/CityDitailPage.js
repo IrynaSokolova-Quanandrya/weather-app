@@ -5,6 +5,7 @@ export default function CityDitailPage(){
     const location = useLocation();
     const navigate = useNavigate();
     const {from} = location.state;
+    console.log(from);
     const {
         id,
         weather,
@@ -22,25 +23,34 @@ export default function CityDitailPage(){
         className={s.button}>
             Go Back
         </button>
+        <div className={s.weather__ditails}>
         <h2>{name}, {sys.country}</h2> 
          {from &&    
-        <ul>
-            <li>{weather[0].description}</li>
-            <li>Temperature {main.temp}</li>
-            <li>Feels like {main.feels_like}</li> 
-            <li>min:{main.temp_max}, max:{main.temp_min}</li>
-            <li>Humidity {main.humidity}%</li>
-            <li>Pressure {main.pressure}</li>
-            <li>Wind speed {wind.speed}</li>
-            <li>Timezone {timezone}</li>
-            <li>
+        <ul className={s.weather__list}>
+            <li className={s.weather__item}>Temperature {main.temp} &#8451;</li>
+            <li className={s.weather__item}>Feels like {main.feels_like} &#8451;</li> 
+            <li className={s.weather__item}>min:{main.temp_max} &#8451;, max:{main.temp_min} &#8451;</li>
+            <li className={s.weather__item}>Humidity {main.humidity}%</li>
+            <li className={s.weather__item}>Pressure {main.pressure} Pa</li>
+            <li className={s.weather__item}>Wind speed {wind.speed} m/s</li>
+            <li className={s.weather__item}>Timezone {timezone}</li>
+            <li className={s.weather__item}>
                 <img 
                 src={`http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`}
                 alt={weather[0].description}/>
-            </li>
+            </li>            
+            <li className={s.weather__item}>{weather[0].description}</li>
+
         </ul>
     }
-        <NavLink to={`/cities/${id}/hourly`} state={{from: coord}} >Show hourly forecast</NavLink> 
+        </div>
+        <NavLink 
+            to={`/cities/${id}/hourly`} 
+            state={{from: coord}} 
+            className={s.link}
+            >
+                Show hourly forecast
+        </NavLink> 
         <Outlet/>
         </>
     )
